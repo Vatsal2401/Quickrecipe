@@ -1,0 +1,12 @@
+.myContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* justify-content: center; */
+    margin-top: 3rem;
+    padding-top: 3rem;
+    width: 382px;
+    height: 507px;
+    /* padding:2px 2px; */
+    /* padding-bottom: 2rem; */
+}
