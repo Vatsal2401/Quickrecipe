@@ -6,7 +6,7 @@ import recipeContext from '../context/recipes/recipeContext';
 export default function RecipeItem(props) {
   const context = useContext(recipeContext);
  
-  const {deletefavouriteRecipe} = context;
+  const {saveRecipeid,deletefavouriteRecipe} = context;
   const host = "http://localhost:3005"
   const [frecipe, setfrecipe] = useState([])
 
@@ -37,7 +37,7 @@ return <><div  style={{ "backgroundColor": "#56d8e83d" }} >
   </div>
   <div className="d-flex align-items-end my-2"> 
   {/* <i className="fa-solid fa-trash-can mx-1 " onClick={()=>{deleteRecipe(frecipe._id); props.showAlert("Recipe Deleted Succesfully","success");}}></i> */}
-    <i className="fa-solid fa-trash-can mx-2 " onClick={()=>{deletefavouriteRecipe(frecipe._id,frecipe.user);props.showAlert("Recipe Removed Succesfully","success");}}></i>
+    <i className="fa-solid fa-trash-can mx-2 " onClick={()=>{deletefavouriteRecipe(frecipe._id,frecipe.user);props.showAlert("Recipe Removed Succesfully","success");window.location.reload();}}></i>
     </div>
     <Link type="button" to= "/ViewRecipe/123"className="btn btn-outline-dark">View Recipe</Link>
 </div>

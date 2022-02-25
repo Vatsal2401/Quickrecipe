@@ -43,7 +43,8 @@ const [steprecipe, setSteprecipe] = useState([{steps:""}])
   }
   const handleclick = (e) => {
     e.preventDefault();
-    createRecipe(recipes.title, recipes.description, recipes.recipeimage, recipes.cooktime, recipes.serves, props)
+    console.log(steprecipe);
+    createRecipe(recipes.title, recipes.description, recipes.recipeimage, recipes.cooktime, recipes.serves, props,steprecipe,ingridentlist)
 
   }
   const addclick = () => {

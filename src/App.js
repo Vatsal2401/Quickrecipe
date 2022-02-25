@@ -36,7 +36,7 @@ function App() {
   <Navbar title='QuickRecipe'/>
 
   <Switch>
-  <Route exact path='/SearchRecipe' ><SearchRecipe/></Route>
+  <Route exact path='/SearchRecipe' ><SearchRecipe showAlert={showAlert}/></Route>
   </Switch>
   <Alert alert={alert}/>
      <Switch>

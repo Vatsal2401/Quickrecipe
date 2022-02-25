@@ -21,12 +21,12 @@ const RecipesSchema = new Schema({
         type: String,
         required: true
     },
-    cooktime:
+    cooktimed:
     {
-        type: Number,
+        type: String,
         required: true
     },
-    serves:
+    serves1:
     {
         type: Number,
         required: true
@@ -43,7 +43,11 @@ const RecipesSchema = new Schema({
     catogory:{
     type:String,
     default:""
-    }
+    },
+    steps1:Schema.Types.Mixed,
+    ingridentarray:Schema.Types.Mixed
+    
+    
 });
 Recipe=mongoose.model('Recipe',RecipesSchema)
 module.exports=Recipe;

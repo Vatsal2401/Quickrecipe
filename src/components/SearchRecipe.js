@@ -2,11 +2,11 @@ import React, { useContext } from 'react'
 import { Link } from 'react-router-dom';
 import recipeContext from '../context/recipes/recipeContext';
 
-export default function SearchRecipe() {
+export default function SearchRecipe(props) {
 
   const context = useContext(recipeContext);
  
-  const { Search,SetSearch,handlechange,SearchRecipe,onSearch} = context;
+  const {saveRecipeid, Search,SetSearch,handlechange,SearchRecipe,onSearch,favouriteRecipe} = context;
 
   return (
     <>
@@ -43,10 +43,10 @@ return <div key={recipes._id} style={{ "backgroundColor": "#56d8e83d" }} >
       
       <img src={`http://localhost:3005/RecipeImage/${recipes.recipeimage}`} className="img-fluid rounded-start" alt="..." />
     </div>
-    {/* <div className="d-flex align-items-end my-2"> 
-    <i className="fa-solid fa-trash-can mx-1 " onClick={()=>{deleteRecipe(recipes._id); props.showAlert("Recipe Deleted Succesfully","success");}}></i>
-      <i className="fa-solid fa-pen-to-square mx-2 "></i>
-      </div> */}
+    <div className="d-flex align-items-end my-2"> 
+    {/* <i className="fa-solid fa-trash-can mx-1 " onClick={()=>{deleteRecipe(recipes._id); props.showAlert("Recipe Deleted Succesfully","success");}}></i> */}
+      <i className="fa-regular fa-bookmark mx-2 "onClick={()=>{favouriteRecipe(recipes._id,recipes.user);props.showAlert("Recipe Added Succesfully","success");}}></i>
+      </div>
       <Link type="button" to= "/ViewRecipe/123"className="btn btn-outline-dark">View Recipe</Link>
   </div>
 

@@ -47,16 +47,19 @@ const RecipeState = (props) => {
     setRecipes(json)
   }
   //create recipe
-  const createRecipe = async (title, description, recipeimage, cooktime, serves, props) => {
+  const createRecipe = async (title, description, recipeimage, cooktime, serves, props,steprecipe,ingridentlist) => {
     //TODO API
+    console.log(steprecipe);
     const formData = new FormData();
 
 
     formData.append('title', title);
     formData.append('description', description);
     formData.append('recipeimage', recipeimage);
-    formData.append('cooktime', cooktime);
-    formData.append('serves', serves);
+    formData.append('cooktime',JSON.stringify(cooktime) );
+    formData.append('serves', JSON.stringify(serves));
+    formData.append('steps', JSON.stringify(steprecipe));
+    formData.append('ingridentlist', JSON.stringify(ingridentlist));
     const response = await fetch(`${host}/api/recipes/addrecipes`, {
       method: 'POST',
       headers: {
@@ -88,6 +91,7 @@ const RecipeState = (props) => {
       "cooktime": 5,
       "serves": 4,
       "date": "2022-02-08T06:11:26.923Z",
+      "steps": steprecipe,
       "__v": 0
     }
     setRecipes(recipes.concat(recipe))
@@ -185,9 +189,11 @@ const RecipeState = (props) => {
     // console.log(json)
     setHomeRecipes(json);
   }
+  const saveRecipeid=(x)=>{
+    localStorage.setItem("RecipeId",x);
+  }
 
-
-  return (<RecipeContext.Provider value={{deletefavouriteRecipe, favouriteRecipe, recipes, createRecipe, deleteRecipe, editRecipe, getrecipes, Search, setSearch, handlechange, getsearchrecipes, SearchRecipe, onSearch, HomeRecipes, setHomeRecipes, gethomerecipes }}>
+  return (<RecipeContext.Provider value={{deletefavouriteRecipe,saveRecipeid, favouriteRecipe, recipes, createRecipe, deleteRecipe, editRecipe, getrecipes, Search, setSearch, handlechange, getsearchrecipes, SearchRecipe, onSearch, HomeRecipes, setHomeRecipes, gethomerecipes }}>
     {props.children}
   </RecipeContext.Provider>)
 

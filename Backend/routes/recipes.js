@@ -42,13 +42,19 @@ router.post("/addrecipes",fetchuser, upload.single('recipeimage'),[
     let success = false;
    const recipeimage=(req.file)?req.file.filename : null;
 //    const recipeimage=await req.body
-   const {  title, description, cooktime, serves } = req.body;
+   const {  title, description, cooktime, serves ,steps, ingridentlist} = req.body;
     const createRecipe = async () => {
         try {
+            
+          const  steps1=JSON.parse(steps)
+          const ingridentarray=JSON.parse(ingridentlist);
+          const cooktimed=JSON.parse(cooktime);
+          const serves1=JSON.parse(serves);
+          console.log(ingridentarray)
             const createRecipe = new Recipe(
                 {
 
-                    recipeimage, title, description, cooktime, serves, user: req.user.id
+                    recipeimage, title, description, cooktimed, serves1, user: req.user.id,steps1, ingridentarray
 
                 }
             )

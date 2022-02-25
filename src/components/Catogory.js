@@ -10,7 +10,7 @@ export default function Catogory(props) {
   
   const context = useContext(recipeContext);
  
-  const {gethomerecipes,HomeRecipes,setHomeRecipes,favouriteRecipe} = context;
+  const {gethomerecipes,HomeRecipes,setHomeRecipes,favouriteRecipe,saveRecipeid} = context;
   useEffect(() => {
     gethomerecipes();
      //eslint-disable-next-line
@@ -44,8 +44,8 @@ setcatogoryrecipe(updatedItems);
  <div className="menu-tabs container">
    <div className="menu-tab d-flex justify-content-around">
 {
-  allcatValues.map((curElem)=>{
-    return <button className="btn  btn-outline-dark" key={Math.random} onClick={()=>{filterItem(curElem)}}>{curElem}</button>
+  allcatValues.map((curElem,i)=>{
+    return <button className="btn  btn-outline-dark" key={i} onClick={()=>{filterItem(curElem)}}>{curElem}</button>
   })
 }
      
@@ -76,9 +76,9 @@ return <div key={recipes._id} style={{ "backgroundColor": "#56d8e83d" }} >
     </div>
     <div className="d-flex align-items-end my-2"> 
           {/* <i className="fa-solid fa-trash-can mx-1 " onClick={()=>{deleteRecipe(recipes._id); props.showAlert("Recipe Deleted Succesfully","success");}}></i> */}
-          <i class="fa-regular fa-bookmark mx-2" onClick={()=>{favouriteRecipe(recipes._id,recipes.user);props.showAlert("Recipe Added Succesfully","success");}}></i>
+          <i className="fa-regular fa-bookmark mx-2" onClick={()=>{favouriteRecipe(recipes._id,recipes.user);props.showAlert("Recipe Added Succesfully","success");}}></i>
             </div>
-      <Link type="button" to= "/ViewRecipe/123"className="btn btn-outline-dark">View Recipe</Link>
+      <Link type="button" to= "/ViewRecipe"className="btn btn-outline-dark" onClick={saveRecipeid(recipes._id)}>View Recipe</Link>
   </div>
 
 </div>
