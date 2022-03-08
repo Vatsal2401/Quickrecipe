@@ -3,19 +3,37 @@ const router = express.Router();
 var fetchuser = require('../middleware/fetchuser');
 const Recipe = require("../models/Recipe");
 const { body, validationResult } = require('express-validator');
-const multer  = require('multer')
+const multer = require('multer')
 const Favourite = require("../models/Favourite");
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, './public/RecipeImages')
+        cb(null, './public/RecipeImages')
     },
     filename: function (req, file, cb) {
-    //   const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
-      cb(null, Date.now()+'_'+file.originalname)
+        //   const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
+        cb(null, Date.now() + '_' + file.originalname)
     }
-  })
-  
-  const upload = multer({ storage: storage })
+})
+
+const upload = multer({ storage: storage })
+
+
+//require file for recipe parser
+const fs = require('fs');
+// import * as  from "";
+const path = require('path');
+const RecipesParser = require('recipes-parser').default;
+// import RecipesParser from 'recipes-parser'
+const units = require('recipes-parser/lib/nlp/en/units.json');
+
+const globalUnit = require('recipes-parser/lib/nlp/en/global_unit.json');
+const rules = fs.readFileSync(
+    path.join(__dirname, `../node_modules/recipes-parser/lib/nlp/en/en/rules.pegjs`),
+    {
+        encoding: "utf8",
+    }
+);
+
 // ROUTE 1 get all the recipes from db get request 
 router.get("/fetchallrecipes", fetchuser, async (req, res) => {
     try {
@@ -28,39 +46,54 @@ router.get("/fetchallrecipes", fetchuser, async (req, res) => {
 
 })
 // ROUTE 2 add recipes in db
-router.post("/addrecipes",fetchuser, upload.single('recipeimage'),[
+router.post("/addrecipes", fetchuser, upload.single('recipeimage'), [
     // body('recipeimage', 'Enter a valid Name').isLength({ min: 3 }),
     body('title', 'Enter a valid title').isLength({ min: 4 }),
     body('description', 'Enter a valid description').isLength({ min: 5 }),
     // body('cooktime', 'Enter a valid time').isLength({ min: 5 }),
     // body('serves', 'Enter a valid value').isLength( {min:4}),
-],  async (req, res) => {
+], async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
     let success = false;
-   const recipeimage=(req.file)?req.file.filename : null;
-//    const recipeimage=await req.body
-   const {  title, description, cooktime, serves ,steps, ingridentlist} = req.body;
+    const recipeimage = (req.file) ? req.file.filename : null;
+    //    const recipeimage=await req.body
+    const { title, description, cooktime, serves, steps, ingridentlist } = req.body;
     const createRecipe = async () => {
         try {
-            
-          const  steps1=JSON.parse(steps)
-          const ingridentarray=JSON.parse(ingridentlist);
-          const cooktimed=JSON.parse(cooktime);
-          const serves1=JSON.parse(serves);
-          console.log(ingridentarray)
+
+            const steps1 = JSON.parse(steps)
+            const ingridentarray = JSON.parse(ingridentlist);
+            const cooktimed = JSON.parse(cooktime);
+            const serves1 = JSON.parse(serves);
+            console.log(ingridentarray);
+
+
+            /////////     /////////
+            //for recipe parser
+            const parser = new RecipesParser(rules, units, globalUnit);
+            for (let i = 0; i < ingridentarray.length; i++) {
+                const element = ingridentarray[i];
+                const results = parser.getIngredientsFromText(
+                    [element],
+                    true
+                );
+                    
+                const parserecipe=results[0].result;
+                console.log(results[0].result);
+            }
             const createRecipe = new Recipe(
                 {
 
-                    recipeimage, title, description, cooktimed, serves1, user: req.user.id,steps1, ingridentarray
+                    recipeimage, title, description, cooktimed, serves1, user: req.user.id, steps1, ingridentarray,parserecipe
 
                 }
             )
             const savedrecipes = await createRecipe.save()
-            success=true
-            res.json({success,savedrecipes});
+            success = true
+            res.json({ success, savedrecipes });
         }
         catch (error) {
             console.log(error.message)
@@ -72,29 +105,29 @@ router.post("/addrecipes",fetchuser, upload.single('recipeimage'),[
 
 
 //Route For Favourite Recipe
-router.put("/updatefavourite",fetchuser,(req, res) => {
-            
-            var favouriterecipe1={"recipeuser":req.body.recipeuser,"recipe":req.body.recipe}
+router.put("/updatefavourite", fetchuser, (req, res) => {
 
-   
- 
-            Favourite.updateOne({ user: req.user.id}, {$push: {favouriterecipe: favouriterecipe1}},(err,result)=>{
-                if (err) {
-                    res.send(err);
-                  } else {
-                    res.send(result);
-                  }
-            });
-   
- 
-})  
+    var favouriterecipe1 = { "recipeuser": req.body.recipeuser, "recipe": req.body.recipe }
+
+
+
+    Favourite.updateOne({ user: req.user.id }, { $push: { favouriterecipe: favouriterecipe1 } }, (err, result) => {
+        if (err) {
+            res.send(err);
+        } else {
+            res.send(result);
+        }
+    });
+
+
+})
 //Route for get favouriterecipe
 router.get("/getfavourite", fetchuser, async (req, res) => {
     try {
         var favourite = await Favourite.find({ user: req.user.id })
 
         res.json(favourite)
-        
+
     } catch (error) {
         console.log(error.message)
         res.status(500).send("some error are occurred")
@@ -173,26 +206,26 @@ router.put("/deletefrecipe", fetchuser, async (req, res) => {
 
     //     find the recipes
     //  to be deleted
-    var favouriterecipe1={"recipeuser":req.body.recipeuser,"recipe":req.body.recipe}
+    var favouriterecipe1 = { "recipeuser": req.body.recipeuser, "recipe": req.body.recipe }
 
-   
- 
-    Favourite.updateOne({ user: req.user.id}, {$pull: {favouriterecipe: favouriterecipe1}},(err,result)=>{
+
+
+    Favourite.updateOne({ user: req.user.id }, { $pull: { favouriterecipe: favouriterecipe1 } }, (err, result) => {
         if (err) {
             res.send(err);
-          } else {
+        } else {
             res.send(result);
-          }
+        }
     });
 
 })
 
 //get particular event by id
-router.get("/:id", async(req,res)=>{
-    try{
-        const ev= await Recipe.findById(req.params.id);
+router.get("/:id", async (req, res) => {
+    try {
+        const ev = await Recipe.findById(req.params.id);
         res.status(200).json(ev)
-    }catch(err){
+    } catch (err) {
         res.status(500).json(err)
     }
 })
