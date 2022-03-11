@@ -8,7 +8,7 @@ const RecipeState = (props) => {
   const [recipes, setRecipes] = useState(recipesIntial);
   const [Search, setSearch] = useState("Search")
   const [SearchRecipe, SetSearchRecipe] = useState([]);
-
+const [user, setuser] = useState([])
 
   const getsearchrecipes = async () => {
     const response = await fetch(`${host}/api/homerecipes/searchrecipes?title=${Search}`, {
@@ -46,6 +46,20 @@ const RecipeState = (props) => {
     console.log(json)
     setRecipes(json)
   }
+  //get user detail
+  const getuser = async () => {
+    //TODO API
+    const response = await fetch(`${host}/api/auth/getuser`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'authtoken': localStorage.getItem('token')
+      }
+    });
+    const json = await response.json();
+    console.log(json);
+setuser(json);
+  }
   //create recipe
   const createRecipe = async (title, description, recipeimage, cooktime, serves, props,steprecipe,ingridentlist) => {
     //TODO API
@@ -53,8 +67,8 @@ const RecipeState = (props) => {
     const formData = new FormData();
 
 
-    formData.append('title', title);
-    formData.append('description', description);
+    formData.append('title1',JSON.stringify(title));
+    formData.append('description1',JSON.stringify(description));
     formData.append('recipeimage', recipeimage);
     formData.append('cooktime',JSON.stringify(cooktime) );
     formData.append('serves', JSON.stringify(serves));
@@ -189,12 +203,9 @@ const RecipeState = (props) => {
     // console.log(json)
     setHomeRecipes(json);
   }
-  const saveRecipeid=(x)=>{
-    localStorage.setItem("RecipeId",x);
-  }
- 
+
       
-  return (<RecipeContext.Provider value={{deletefavouriteRecipe,saveRecipeid, favouriteRecipe, recipes, createRecipe, deleteRecipe, editRecipe, getrecipes, Search, setSearch, handlechange, getsearchrecipes, SearchRecipe, onSearch, HomeRecipes, setHomeRecipes, gethomerecipes }}>
+  return (<RecipeContext.Provider value={{getuser,user,deletefavouriteRecipe, favouriteRecipe, recipes, createRecipe, deleteRecipe, editRecipe, getrecipes, Search, setSearch, handlechange, getsearchrecipes, SearchRecipe, onSearch, HomeRecipes, setHomeRecipes, gethomerecipes }}>
     {props.children}
   </RecipeContext.Provider>)
 

@@ -5,6 +5,7 @@ const Recipe = require("../models/Recipe");
 const { body, validationResult } = require('express-validator');
 const multer = require('multer')
 const Favourite = require("../models/Favourite");
+const path = require('path');
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
         cb(null, './public/RecipeImages')
@@ -21,7 +22,6 @@ const upload = multer({ storage: storage })
 //require file for recipe parser
 const fs = require('fs');
 // import * as  from "";
-const path = require('path');
 const RecipesParser = require('recipes-parser').default;
 // import RecipesParser from 'recipes-parser'
 const units = require('recipes-parser/lib/nlp/en/units.json');
@@ -48,8 +48,8 @@ router.get("/fetchallrecipes", fetchuser, async (req, res) => {
 // ROUTE 2 add recipes in db
 router.post("/addrecipes", fetchuser, upload.single('recipeimage'), [
     // body('recipeimage', 'Enter a valid Name').isLength({ min: 3 }),
-    body('title', 'Enter a valid title').isLength({ min: 4 }),
-    body('description', 'Enter a valid description').isLength({ min: 5 }),
+    body('title1', 'Enter a valid title').isLength({ min: 4 }),
+    body('description1', 'Enter a valid description').isLength({ min: 5 }),
     // body('cooktime', 'Enter a valid time').isLength({ min: 5 }),
     // body('serves', 'Enter a valid value').isLength( {min:4}),
 ], async (req, res) => {
@@ -60,34 +60,53 @@ router.post("/addrecipes", fetchuser, upload.single('recipeimage'), [
     let success = false;
     const recipeimage = (req.file) ? req.file.filename : null;
     //    const recipeimage=await req.body
-    const { title, description, cooktime, serves, steps, ingridentlist } = req.body;
+    const { title1, description1, cooktime, serves, steps, ingridentlist } = req.body;
     const createRecipe = async () => {
         try {
+            const title = JSON.parse(title1);
+            const description = JSON.parse(description1);
 
-            const steps1 = JSON.parse(steps)
+            const steps1 = JSON.parse(steps);
             const ingridentarray = JSON.parse(ingridentlist);
             const cooktimed = JSON.parse(cooktime);
             const serves1 = JSON.parse(serves);
-            console.log(ingridentarray);
-
-
-            /////////     /////////
-            //for recipe parser
-            const parser = new RecipesParser(rules, units, globalUnit);
-            for (let i = 0; i < ingridentarray.length; i++) {
-                const element = ingridentarray[i];
+            
+            const ingridentarrayname=ingridentarray.map(function(val,index){
+                return val.ingridentName;
+            })
+            
+            console.log(ingridentarray[0].ingridentName);
+            console.log(ingridentarrayname);
+            // for recipe parser
+         
+            const parser =  new RecipesParser(rules, units, globalUnit);
+            // const parseingrident=new Array();
+            var parseingrident = ingridentarrayname.map(function(val, index){
+                // const element = ingridentarray[i];
                 const results = parser.getIngredientsFromText(
-                    [element],
+                    [val],
                     true
                 );
                     
-                const parserecipe=results[0].result;
-                console.log(results[0].result);
-            }
+                // parseingrident[i]=results[0].result;
+                return results[0].result;
+            })
+              
+            // for (let i = 0; i < ingridentarray.length; i++) {
+            //     const element = ingridentarray[i];
+            //     const results = parser.getIngredientsFromText(
+            //         [element],
+            //         true
+            //     );
+                    
+            //     parseingrident[i]=results[0].result;
+            //     // console.log(results[0].result);
+            // }
+            console.log(parseingrident);
             const createRecipe = new Recipe(
                 {
 
-                    recipeimage, title, description, cooktimed, serves1, user: req.user.id, steps1, ingridentarray,parserecipe
+                    recipeimage, title, description, cooktimed, serves1, user: req.user.id, steps1, ingridentarray,parseingrident
 
                 }
             )

@@ -128,10 +128,10 @@ router.post('/login', [
 })
 // fetching user by jwt token 
 
-router.post('/getuser', fetchuser, async (req, res) => {
+router.get('/getuser', fetchuser, async (req, res) => {
 
   try {
-    userId = req.user.id;
+   const userId = req.user.id;
     const user = await User.findById(userId).select("-password")
     res.send(user)
   } catch (error) {

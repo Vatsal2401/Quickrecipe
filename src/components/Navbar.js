@@ -29,19 +29,28 @@ export default function Navbar(props) {
                   <Link className={`nav-link ${location.pathname === "/" ? "active" : ""}`} aria-current="page" to="/">Home</Link>
                 </li>
                 <li className="nav-item">
-                  <Link className={`nav-link ${location.pathname === "/SearchRecipe" ? "active" : ""}`} aria-current="page" to="/SearchRecipe">SearchRecipe</Link>
+                  <Link className={`nav-link ${location.pathname === "/SearchRecipe" ? "active" : ""}`} aria-current="page" to="/SearchRecipe"><i class="fa-solid fa-magnifying-glass"></i></Link>
                 </li>
-                <li className="nav-item dropdown">
+                <li className="nav-item">
+                <Link className={`nav-link ${location.pathname === "/Catogory" ? "active" : ""}`} to="/Catogory">Category</Link>
+                </li>
+                {/* <li className="nav-item">
+                  {localStorage.getItem('token') ? <Link className={`nav-link ${location.pathname === "/Profile" ? "active" : ""}`} aria-current="page" to="/Profile"><i class="fa-solid fa-gauge"></i></Link> : <Link className="nav-link disabled " aria-current="page" to="/Profile">USER DASH</Link>}
+                </li> */}
+                {/* <li className="nav-item dropdown">
                   <Link className={`nav-link  dropdown-toggle `} href="/" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     ManageRecipe
                   </Link>
+                  <ul className="d-grid gap-2 d-md-flex justify-content-md-end navbar-nav  mb-2 mb-lg-0">
+                
+              </ul>
                   <ul className="dropdown-menu" aria-labelledby="navbarDropdown" style={{ zIndex: 10000 }}>
                     <li><Link className="dropdown-item" to="/NutrtionCalc">AddRecipe</Link></li>
                     <li><Link className="dropdown-item" to="/CreateRecipe">UpdateRecipe</Link></li>
-                    {/* <li><hr className="dropdown-divider" /></li> */}
-                    <li><Link className="dropdown-item" to="/Catogory">DeleteRecipe</Link></li>
+                    <li><hr className="dropdown-divider" /></li>
+                    <li><Link className="dropdown-item" to="/Userprofile">user</Link></li>
                   </ul>
-                </li>
+                </li> */}
                 <li className="nav-item dropdown">
                   <a className="nav-link dropdown-toggle" href="/" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Features
@@ -56,11 +65,15 @@ export default function Navbar(props) {
 
               </ul>
 
-            
+
               <ul className="d-grid gap-2 d-md-flex justify-content-md-end navbar-nav  mb-2 mb-lg-0">
                 <li className="nav-item">
-                  {localStorage.getItem('token') ? <Link className={`nav-link ${location.pathname === "/Profile" ? "active" : ""}`} aria-current="page" to="/Profile">USER DASH</Link> : <Link className="nav-link disabled " aria-current="page" to="/Profile">USER DASH</Link>}
+                  {localStorage.getItem('token') ? <Link className={`nav-link ${location.pathname === "/Userprofile" ? "active" : ""}`} aria-current="page" to="/Userprofile"><i class="fa-solid fa-user"></i></Link> : <Link className="nav-link disabled " aria-current="page" to="/Userprofile"><i class="fa-solid fa-user"></i></Link>}
                 </li>
+                <li className="nav-item">
+                  {localStorage.getItem('token') ? <Link className={`nav-link ${location.pathname === "/Profile" ? "active" : ""}`} aria-current="page" to="/Profile"><i class="fa-solid fa-gauge"></i></Link> : <Link className="nav-link disabled " aria-current="page" to="/Profile"><i class="fa-solid fa-gauge"></i></Link>}
+                </li>
+
               </ul>
 
               {!localStorage.getItem('token') ? <ul className="d-grid gap-2 d-md-flex justify-content-md-end navbar-nav  mb-2 mb-lg-0"><li className="nav-item">
@@ -68,14 +81,14 @@ export default function Navbar(props) {
               </li>
                 <li className="nav-item">
                   <Link className={`nav-link ${location.pathname === "/SignUp" ? "active" : ""}`} aria-current="page" to="/SignUp">SignUp</Link>
-                </li></ul> : <button className='btn btn-primary' onClick={handleLogout}>Logout</button>}
+                </li></ul> : <button className='btn btn-dark' onClick={handleLogout}><i class="fa-solid fa-right-from-bracket"></i></button>}
 
 
             </div>
           </div>
         </nav>
       </div>
-     
+
 
     </>
   )

@@ -9,6 +9,7 @@ import SignUp from './components/SignUp';
 import Home from './components/Home';
 import CreateRecipe from './components/CreateRecipe';
 import ViewRecipe from './components/ViewRecipe';
+import ApiViewRecipe from './components/ApiViewRecipe';
 import Footer from './components/Footer';
 import Profile from './components/Profile';
 // import FavouriteRecipe from './components/FavouriteRecipe';
@@ -17,6 +18,7 @@ import Catogory from './components/Catogory';
 import RecipeState from './context/recipes/RecipeState';
 import Alert from './components/Alert';
 import SearchRecipe from './components/SearchRecipe';
+import Userprofile from './components/Userprofile';
 function App() {
   const [alert, setAlert] = useState(null)
   const showAlert =(message,type)=>{
@@ -46,11 +48,11 @@ function App() {
                  <Route exact path='/' ><Home showAlert={showAlert}/></Route>
                  <Route exact path='/CreateRecipe' ><CreateRecipe/></Route>
                  <Route exact path='/ViewRecipe' ><ViewRecipe/></Route>
-               
+                 <Route exact path='/ApiViewRecipe' ><ApiViewRecipe/></Route>
                  <Route exact path='/ViewRecipe/123' ><ViewRecipe/></Route>
                  <Route path='/Profile' ><Profile showAlert={showAlert}/></Route>
                  <Route exact path='/Catogory' ><Catogory showAlert={showAlert}/></Route>
-
+                 <Route exact path='/Userprofile' ><Userprofile showAlert={showAlert}/></Route>
                 
 
           </Switch>

@@ -6,9 +6,12 @@ import recipeContext from '../context/recipes/recipeContext';
 export default function RecipeItem(props) {
   const context = useContext(recipeContext);
  
-  const {saveRecipeid,deletefavouriteRecipe} = context;
+  const {deletefavouriteRecipe} = context;
   const host = "http://localhost:3005"
   const [frecipe, setfrecipe] = useState([])
+  const saveRecipeid = (x) => {
+    localStorage.setItem("RecipeId", x);
+  }
 
 useEffect(() => {
   axios.get(`${host}/api/recipes/${props.recipeid}`)
@@ -39,7 +42,7 @@ return <><div  style={{ "backgroundColor": "#56d8e83d" }} >
   {/* <i className="fa-solid fa-trash-can mx-1 " onClick={()=>{deleteRecipe(frecipe._id); props.showAlert("Recipe Deleted Succesfully","success");}}></i> */}
     <i className="fa-solid fa-trash-can mx-2 " onClick={()=>{deletefavouriteRecipe(frecipe._id,frecipe.user);props.showAlert("Recipe Removed Succesfully","success");window.location.reload();}}></i>
     </div>
-    <Link type="button" to= "/ViewRecipe/123"className="btn btn-outline-dark">View Recipe</Link>
+    <Link type="button" to= "/ViewRecipe/123"className="btn btn-outline-dark" onClick={()=>{saveRecipeid(frecipe._id)}}>View Recipe</Link>
 </div>
 
 </div></>;

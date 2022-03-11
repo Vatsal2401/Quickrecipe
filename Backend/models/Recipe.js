@@ -46,7 +46,7 @@ const RecipesSchema = new Schema({
     },
     steps1:Schema.Types.Mixed,
     ingridentarray:Schema.Types.Mixed,
-    ingridentparser:Schema.Types.Mixed
+    parseingrident:Schema.Types.Mixed
     
 });
 Recipe=mongoose.model('Recipe',RecipesSchema)
