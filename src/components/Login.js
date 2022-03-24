@@ -2,11 +2,18 @@ import React ,{useState} from 'react'
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min'
 // import Check from './Check'
 import './Login.css'
+import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 export default function Login(props) {
 const initialCredential={
   username:"",
   password:""
 }
+const [passwordShown, setPasswordShown] = useState(false);
+const togglePassword = () => {
+  // When the handler is invoked
+  // inverse the boolean state of passwordShown
+  setPasswordShown(!passwordShown);
+};
   const [credential, setCredential] = useState(initialCredential)
   const handlechange=(e)=>{
     setCredential({...credential,[e.target.name]:e.target.value})
@@ -49,13 +56,22 @@ const initialCredential={
   </div>
   <div className="mb-3">
     <label htmlFor="password" className="form-label">Password</label>
-    <input type="password" className="form-control" id="password" name="password" value={credential.password}  onChange={handlechange}/>
+
+      <div class="input-group" id="show_hide_password">
+    <input type={passwordShown ? "text" : "password"} className="form-control" id="password" name="password" value={credential.password}  onChange={handlechange}/>
+      
+      <div class="input-group-addon mx-1">
+        {/* <a href=""></a> */}
+    <button type='button' onClick={togglePassword}><i class={passwordShown?"fa fa-eye":"fa fa-eye-slash"} aria-hidden="true"></i></button>
+      </div>
+    </div>
   </div>
   {/* <div className="mb-3 form-check">
     <input type="checkbox" className="form-check-input" id="exampleCheck1"/>
     <label className="form-check-label" htmlFor"exampleCheck1">Check me out</label>
   </div> */}
-  <div className="d-flex justify-content-center my-6"><button type="submit" className="btn btn-primary ">Login</button></div>
+  <div className="d-flex justify-content-center my-6"><button type="submit" className="btn  btn-outline-dark ">Login</button></div>
+  <div className='my-3 row'><h6 className='col-md-6'>Not Registered?</h6> <Link className={`nav-link col-md-6`} aria-current="page" to="/SignUp">SignUp</Link> </div>
 </form>
 
 

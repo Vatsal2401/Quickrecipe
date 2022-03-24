@@ -2,9 +2,9 @@ import React from "react";
 
 const Chefs = () => {
   return (
-    <div className="container my-3">
-      <div className="container d-flex align-items-center justify-content-center my-3">
-        <h1>Chefs</h1>
+    <div className="container my-3 p-3 mb-2 bg-dark text-white">
+      <div className="container d-flex align-items-center justify-content-center my-3 bg-dark text-white">
+        <h1 >Chefs</h1>
       </div>
       <div className="row">
         <div className="col-md-4">

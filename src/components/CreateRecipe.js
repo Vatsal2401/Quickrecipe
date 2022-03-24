@@ -79,7 +79,7 @@ const [steprecipe, setSteprecipe] = useState([{steps:""}])
   return (
     <>
       <form action="" >
-        <div className="container my-5 border w-50 ">
+        <div className="container my-5 border w-50">
           <div className="container d-flex justify-content-center my-3">
             <h1>
               Create Recipe

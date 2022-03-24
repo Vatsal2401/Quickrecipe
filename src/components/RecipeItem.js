@@ -42,7 +42,7 @@ return <><div  style={{ "backgroundColor": "#56d8e83d" }} >
   {/* <i className="fa-solid fa-trash-can mx-1 " onClick={()=>{deleteRecipe(frecipe._id); props.showAlert("Recipe Deleted Succesfully","success");}}></i> */}
     <i className="fa-solid fa-trash-can mx-2 " onClick={()=>{deletefavouriteRecipe(frecipe._id,frecipe.user);props.showAlert("Recipe Removed Succesfully","success");window.location.reload();}}></i>
     </div>
-    <Link type="button" to= "/ViewRecipe/123"className="btn btn-outline-dark" onClick={()=>{saveRecipeid(frecipe._id)}}>View Recipe</Link>
+    <Link type="button" to= "/ViewRecipe"className="btn btn-outline-dark" onClick={()=>{saveRecipeid(frecipe._id)}}>View Recipe</Link>
 </div>
 
 </div></>;

@@ -48,8 +48,8 @@ router.get("/fetchallrecipes", fetchuser, async (req, res) => {
 // ROUTE 2 add recipes in db
 router.post("/addrecipes", fetchuser, upload.single('recipeimage'), [
     // body('recipeimage', 'Enter a valid Name').isLength({ min: 3 }),
-    body('title1', 'Enter a valid title').isLength({ min: 4 }),
-    body('description1', 'Enter a valid description').isLength({ min: 5 }),
+    // body('title1', 'Enter a valid title').isLength({ min: 4 }),
+    // body('description1', 'Enter a valid description').isLength({ min: 5 }),
     // body('cooktime', 'Enter a valid time').isLength({ min: 5 }),
     // body('serves', 'Enter a valid value').isLength( {min:4}),
 ], async (req, res) => {

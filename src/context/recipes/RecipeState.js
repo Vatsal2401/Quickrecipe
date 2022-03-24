@@ -96,19 +96,19 @@ setuser(json);
     }
 
 
-    const recipe = {
-      "_id": "62102098e669ecdd6d1435b0a",
-      "user": "61fcb48ce628f858a68a5d62",
-      "recipeimage": recipeimage,
-      "title": title,
-      "description": description,
-      "cooktime": 5,
-      "serves": 4,
-      "date": "2022-02-08T06:11:26.923Z",
-      "steps": steprecipe,
-      "__v": 0
-    }
-    setRecipes(recipes.concat(recipe))
+    // const recipe = {
+    //   "_id": "62102098e669ecdd6d1435b0a",
+    //   "user": "61fcb48ce628f858a68a5d62",
+    //   "recipeimage": recipeimage,
+    //   "title": title,
+    //   "description": description,
+    //   "cooktime": 5,
+    //   "serves": 4,
+    //   "date": "2022-02-08T06:11:26.923Z",
+    //   "steps": steprecipe,
+    //   "__v": 0
+    // }
+    // setRecipes(recipes.concat(recipe))
   }
   //delete recipe
 

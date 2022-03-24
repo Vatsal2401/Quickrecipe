@@ -46,7 +46,7 @@ export default function Catogory(props) {
   return <>
 
     <h1 className="mt-1 text-center main-heading">Category</h1>
-    <Spinner />
+    {/* <Spinner /> */}
     <div className="menu-tabs container">
       <div className="menu-tab d-flex justify-content-around">
         {

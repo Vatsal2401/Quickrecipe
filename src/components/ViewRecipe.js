@@ -69,6 +69,7 @@ export default function ViewRecipe(props) {
         );
     });
     console.log(recipe);
+    
     return (
         <>
 
@@ -103,10 +104,10 @@ export default function ViewRecipe(props) {
             </div>
 
             <div className="container">
-                {/* <div className="row  "> */}
-                {/* <img src={`http://localhost:3005/RecipeImage/${recipe.recipeimage}`} alt="..." style={{ "height": 372 + "px" }} /> */}
+              
+                {/* <img src={`http://localhost:3005/RecipeImage/${recipe.recipeimage}`} alt="..." className='img-fluid'/> */}
                 <img src={`http://localhost:3005/RecipeImage/${recipe.recipeimage}`} className="rounded mx-auto d-block" alt="..." />
-                {/* </div> */}
+             
                 <div className="row border border-info  border-2 my-5 bg-dark bg-gradient text-white">
                     <div className="col-12 col-md-8">
                         <div className="receipe-headline my-5">

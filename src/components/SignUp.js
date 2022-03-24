@@ -1,8 +1,83 @@
 import React ,{useState} from 'react'
 import { useHistory } from 'react-router-dom'
 
-import './Login.css'
+import './Signup.css'
 export default function SignUp(props) {
+  
+  
+const [passwordError, setPasswordErr] = useState("");
+const [confirmPasswordError, setConfirmPasswordError] = useState("");
+const [passwordInput, setPasswordInput]= useState({
+    password:'',
+    confirmPassword:''
+})
+const handlePasswordChange =(evnt)=>{
+
+  const passwordInputValue = evnt.target.value.trim();
+  const passwordInputFieldName = evnt.target.name;
+  const NewPasswordInput = {...passwordInput,[passwordInputFieldName]:passwordInputValue}
+  setPasswordInput(NewPasswordInput);
+  
+}
+const handleValidation= (evnt)=>{
+
+  const passwordInputValue = evnt.target.value.trim();
+  const passwordInputFieldName = evnt.target.name;
+
+      //for password 
+if(passwordInputFieldName==='password'){
+  const uppercaseRegExp   = /(?=.*?[A-Z])/;
+  const lowercaseRegExp   = /(?=.*?[a-z])/;
+  const digitsRegExp      = /(?=.*?[0-9])/;
+  const specialCharRegExp = /(?=.*?[#?!@$%^&*-])/;
+  const minLengthRegExp   = /.{8,}/;
+
+  const passwordLength =      passwordInputValue.length;
+  const uppercasePassword =   uppercaseRegExp.test(passwordInputValue);
+  const lowercasePassword =   lowercaseRegExp.test(passwordInputValue);
+  const digitsPassword =      digitsRegExp.test(passwordInputValue);
+  const specialCharPassword = specialCharRegExp.test(passwordInputValue);
+  const minLengthPassword =   minLengthRegExp.test(passwordInputValue);
+
+  let errMsg ="";
+  if(passwordLength===0){
+          errMsg="Password is empty";
+  }else if(!uppercasePassword){
+          errMsg="At least one Uppercase";
+  }else if(!lowercasePassword){
+          errMsg="At least one Lowercase";
+  }else if(!digitsPassword){
+          errMsg="At least one digit";
+  }else if(!specialCharPassword){
+          errMsg="At least one Special Characters";
+  }else if(!minLengthPassword){
+          errMsg="At least minumum 8 characters";
+  }else{
+      errMsg="";
+  }
+  setPasswordErr(errMsg);
+  }
+
+  // for confirm password
+  if(passwordInputFieldName=== "confirmPassword" || (passwordInputFieldName==="password" && passwordInput.confirmPassword.length>0) ){
+          
+      if(passwordInput.confirmPassword!==passwordInput.password)
+      {
+      setConfirmPasswordError("Confirm password is not matched");
+      }else{
+      setConfirmPasswordError("");
+      }
+      
+  }
+
+}
+
+  const [passwordShown, setPasswordShown] = useState(false);
+const togglePassword = () => {
+  // When the handler is invoked
+  // inverse the boolean state of passwordShown
+  setPasswordShown(!passwordShown);
+};
   const [credential, setCredential] = useState({name:"",username:"",password:"",cpassword:""})
   const handlechange=(e)=>{
     setCredential({...credential,[e.target.name]:e.target.value})
@@ -32,6 +107,7 @@ export default function SignUp(props) {
       props.showAlert("Invalid Credentials","danger")
     }
   }
+  
     return (
         < >
 
@@ -51,7 +127,14 @@ export default function SignUp(props) {
   </div>
   <div className="mb-3">
     <label htmlFor="password" className="form-label">Password</label>
-    <input type="password" className="form-control" id="password" name='password' value={credential.password}  onChange={handlechange} minLength={5} required/>
+    <div class="input-group" id="show_hide_password">
+    
+    <input type={passwordShown ? "text" : "password"}className="form-control" id="password" name='password' value={credential.password}  onChange={handlechange} minLength={5} required/>
+      
+      <div class="input-group-addon mx-1">
+    <button type='button' onClick={togglePassword}><i class={passwordShown?"fa fa-eye":"fa fa-eye-slash"} aria-hidden="true"></i></button>
+      </div>
+    </div>
   </div>
   <div className="">
     <label htmlFor="cpassword" className="form-label">ConfirmPassword</label>
@@ -59,7 +142,7 @@ export default function SignUp(props) {
   </div>
  
  
-  <div className="d-flex justify-content-center my-3 "><button type="submit" className="btn btn-primary  ">SignUp</button></div>
+  <div className="d-flex justify-content-center my-3 mb-3"><button type="submit" className="btn  btn-outline-dark  ">SignUp</button></div>
   
 </form>
 

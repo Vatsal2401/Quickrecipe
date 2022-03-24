@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 export default function RecipeItemList () {
   const [apirecipe, setapirecipe] = useState([]);
   const getrecipe = async () => {
-    const res = await axios.get(`https://api.spoonacular.com/recipes/random?number=10&tags=indian
+    const res = await axios.get(`https://api.spoonacular.com/recipes/random?number=10&tags=vegan
       &apiKey=e1c5fcf68c3a4f03a45ea96c7bde9c21`)
     setapirecipe(res.data.recipes);
   }
@@ -20,9 +20,9 @@ export default function RecipeItemList () {
   console.log(apirecipe);
   const recipes = apirecipe.map((recipe) => {
     return (
-      <div key={Math.random()} className="card mb-3 col-md-6 mx-2" style={{ "maxWidth": "540px" }}>
+      <div key={Math.random()} className="card mb-3 col-md-6 mx-2 " style={{ "maxWidth": "540px","backgroundColor":"#e4bca0" }}>
         <div className="row g-0">
-          <div className="col-md-4">
+          <div className="col-md-4 my-1">
             <img src={recipe.image} className="img-fluid rounded-start" alt="..." />
           </div>
           <div className="col-md-8">

@@ -7,33 +7,33 @@ import Chefs from './Chefs';
 export default function Home() {
   return (
     <>
-      <div className="container my-4">
+      <div className="container">
         <div id="carouselExampleDark" className="carousel carousel-dark slide" data-bs-ride="carousel">
           <div className="carousel-indicators">
             <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" className="active" aria-current="true" aria-label="Slide 1"></button>
             <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
             <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
           </div>
-          <div className="carousel-inner" style={{ height: 600 + "px" }}>
+          <div className="carousel-inner" style={{ height: 700 + "px" }}>
             <div className="carousel-item active" data-bs-interval="10000">
-              <img src="https://source.unsplash.com/random/900×700/?recipe " className="d-block w-100" alt="..."style={{ height: 600 + "px" }} />
+              <img src="https://source.unsplash.com/random/900×700/?recipe " className="d-block w-100" alt="..."style={{ height: 700 + "px" }} />
               <div className="carousel-caption d-none d-md-block">
-                <h5>First slide label</h5>
-                <p>Some representative placeholder content for the first slide.</p>
+                <h5>Search recipe</h5>
+                <p>Find  cooking inspiration on Quickrecipes. Discover recipes based on the food you love .</p>
               </div>
             </div>
             <div className="carousel-item" data-bs-interval="2000">
-              <img src="https://source.unsplash.com/random/900×700/?food "  className="d-block w-100" alt="..." style={{ height: 600 + "px" }}/>
+              <img src="https://source.unsplash.com/random/900×700/?food "  className="d-block w-100" alt="..." style={{ height: 700 + "px" }}/>
               <div className="carousel-caption d-none d-md-block">
-                <h5>Second slide label</h5>
-                <p>Some representative placeholder content for the second slide.</p>
+                <h5>Make your own recipe</h5>
+                <p>Inspire other to cook your dish.</p>
               </div>
             </div>
             <div className="carousel-item">
-              <img src="https://source.unsplash.com/random/900×700/?chef "  className="d-block w-100" alt="..."style={{ height: 600 + "px" }} />
+              <img src="https://source.unsplash.com/random/900×700/?vegan "  className="d-block w-100" alt="..."style={{ height: 700 + "px" }} />
               <div className="carousel-caption d-none d-md-block">
-                <h5>Third slide label</h5>
-                <p>Some representative placeholder content for the third slide.</p>
+                <h5>Get Nutrition information </h5>
+                <p className='d-none'>Some representative placeholder content for the third slide.</p>
               </div>
             </div>
           </div>

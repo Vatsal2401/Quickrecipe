@@ -68,10 +68,10 @@ export default function Navbar(props) {
 
               <ul className="d-grid gap-2 d-md-flex justify-content-md-end navbar-nav  mb-2 mb-lg-0">
                 <li className="nav-item">
-                  {localStorage.getItem('token') ? <Link className={`nav-link ${location.pathname === "/Userprofile" ? "active" : ""}`} aria-current="page" to="/Userprofile"><i class="fa-solid fa-user"></i></Link> : <Link className="nav-link disabled " aria-current="page" to="/Userprofile"><i class="fa-solid fa-user"></i></Link>}
+                  {localStorage.getItem('token') ? <Link className={`nav-link ${location.pathname === "/Profile" ? "active" : ""}`} aria-current="page" to="/Profile"><i class="fa-solid fa-gauge"></i></Link> : <Link className="nav-link disabled " aria-current="page" to="/Profile"><i class="fa-solid fa-gauge"></i></Link>}
                 </li>
                 <li className="nav-item">
-                  {localStorage.getItem('token') ? <Link className={`nav-link ${location.pathname === "/Profile" ? "active" : ""}`} aria-current="page" to="/Profile"><i class="fa-solid fa-gauge"></i></Link> : <Link className="nav-link disabled " aria-current="page" to="/Profile"><i class="fa-solid fa-gauge"></i></Link>}
+                  {localStorage.getItem('token') ? <Link className={`nav-link ${location.pathname === "/Userprofile" ? "active" : ""}`} aria-current="page" to="/Userprofile"><i class="fa-solid fa-user"></i></Link> : <Link className="nav-link disabled " aria-current="page" to="/Userprofile"><i class="fa-solid fa-user"></i></Link>}
                 </li>
 
               </ul>
@@ -93,11 +93,4 @@ export default function Navbar(props) {
     </>
   )
 }
-Navbar.propTypes = {
-  title: PropTypes.string.isRequired,
-  aboutText: PropTypes.string.isRequired
-}
-Navbar.defaultProps = {
-  title: 'add title here',
-  aboutText: 'Add name'
-};
+
